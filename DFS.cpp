@@ -3,31 +3,23 @@ class Solution
 {
     public:
 	//Function to return a list containing the DFS traversal of the graph.
-	void dfs(int node,vector<int> &vis,vector<int> adj[],vector<int> &storedfs)
-	{
-	    storedfs.push_back(node);
-	    vis[node]=1;
-	    for(auto it:adj[node])
-	    {
-	    if(!vis[it]);
-	    {
-	        dfs(it,vis,adj,storedfs);
-	    }
-	    }
-	}
+	void dfsOfGraph(int node, vector<vector<int>>& adj, int vis[], vector<int>& ans){
+        vis[node] = 1;
+        ans.push_back(node);
+        for(auto it: adj[node]){
+            if(!vis[it]){
+                dfsOfGraph(it, adj, vis, ans);
+            }
+        }
+    }
 	
-	vector<int>dfsOfGraph(int V, vector<int> adj[])
-	{
-	    vector<int> storedfs;
-	    vector<int> vis(V,0);
-	    for(int i=1;i<=V;i++)
-	    {
-	        if(!vis[i])
-	        {
-	            dfs(i,vis,adj,storedfs);
-	        }
-	    }
-	    return storedfs;
-	    
-	}
+	vector<int> dfs(vector<vector<int>>& adj) {
+        // Code here
+        int n = adj.size();
+        int vis[n] = {0};
+        int start = 0;
+        vector<int> ans;
+        dfsOfGraph(start, adj, vis, ans);
+        return ans;
+    }
 };
